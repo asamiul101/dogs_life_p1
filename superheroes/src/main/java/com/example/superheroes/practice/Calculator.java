@@ -11,13 +11,13 @@ public class Calculator {
         return num1+num2;
     }
 
-    @PostConstruct
-    public void init(){
-        System.out.println("Calculator has been created!!!");
-    }
-
-    @PreDestroy
-    public void destroy(){
-        System.out.println("Calculator will be destroyed");
-    }
+//    @PostConstruct
+//    public void init(){
+//        System.out.println("Calculator has been created!!!");
+//    }
+//
+//    @PreDestroy
+//    public void destroy(){
+//        System.out.println("Calculator will be destroyed");
+//    }
 }
