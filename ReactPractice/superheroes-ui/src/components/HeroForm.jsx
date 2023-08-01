@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
+import { saveHero } from "../service/hero-service";
+import { useNavigate } from "react-router-dom";
 
 const HeroForm = () => {
   const [alias, setAlias] = useState("");
   const [name, setName] = useState("");
-  const [ability, setAbility] = useState("");
-  const [teamID, setTeamID] = useState(0);
+  const [superpower, setAbility] = useState("");
+  const [teamid, setTeamID] = useState(0);
+
+  const navigate = useNavigate();
 
   const handleAliasChange = (event) => {
     setAlias(event.target.value);
@@ -30,9 +34,21 @@ const HeroForm = () => {
     let hero = {};
     hero.alias = alias;
     hero.name = name;
-    hero.ability = ability;
-    hero.teamID = teamID;
-    console.log(hero);
+    hero.superpower = superpower;
+    hero.teamid = teamid;
+
+    saveHero(hero)
+      .then((res) => {
+        setAbility("");
+        setAlias("");
+        setName("");
+        setTeamID(0);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    navigate("/");
   };
 
   return (
@@ -61,13 +77,13 @@ const HeroForm = () => {
           <Form.Control
             type="text"
             placeholder="Hero ability"
-            value={ability}
+            value={superpower}
             onChange={handleAbilityChange}
           />
         </Form.Group>
         <Form.Select
           aria-label="Team ID"
-          value={teamID}
+          value={teamid}
           onChange={handleTeamChange}
         >
           <option>Team ID</option>
